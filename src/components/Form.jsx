@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { SubmitButton } from "./SubmitButton";
-import { media } from "./styles/media";
 
 const FormStyled = styled.form`
   background-color: #f2f0f0;
@@ -26,7 +25,7 @@ const InputStyled = styled.textarea`
   display: flex;
   height: 60px;
   border-radius: 0px;
-  border: 2px solid ${(props) => (props.error ? "red" : "#c5c5c5")};
+  border: 2px solid ${(props) => (props.$error ? "red" : "#c5c5c5")};
   font-size: 18px;
   font-family: "Roboto+Mono", monospace, sans-serif;
   resize: none;
@@ -121,7 +120,7 @@ export const Form = ({ addThought }) => {
         placeholder="What makes you happy today?"
         value={message.thought}
         onChange={handleInputChange}
-        error={extraCharacters}
+        $error={extraCharacters}
       />
       <LetterCounter error={extraCharacters}>
         Characters left:{Math.max(maxCharachters - charactersUsed, 0)} /{" "}

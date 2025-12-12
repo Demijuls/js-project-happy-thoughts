@@ -4,9 +4,12 @@ import { Title } from "./components/styles/Typography";
 import { Message } from "./components/Message";
 import { Form } from "./components/Form";
 import { LikeIcon } from "./icons/LikeIcon";
+import Lottie from "lottie-react";
+import AnimationLoading from "./assets/animationData.json";
 
 export const App = () => {
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   /* useEffect(() => {
     const savedMsg = localStorage.getItem("newThoughts");
@@ -30,6 +33,8 @@ export const App = () => {
   }; */
 
   useEffect(() => {
+    setLoading(true);
+
     fetch("https://happy-thoughts-api-4ful.onrender.com/thoughts")
       .then((response) => response.json())
       .then((data) => {
@@ -41,13 +46,17 @@ export const App = () => {
         }));
         setMessages(formatData);
         /*  localStorage.setItem("newThoughts", JSON.stringify(data)); */
-      });
+      })
+      .finally(() => setLoading(false));
 
     /* .catch((errors) => console.error("Fetch error:", errors)); */
   }, []);
 
   const postMessage = (newMessage) => {
-    setMessages((prev) => [newMessage, ...prev]);
+    setMessages((prev) => [
+      { ...newMessage, isNew: true },
+      ...prev.map((msg) => ({ ...msg, isNew: false })),
+    ]);
   };
 
   const addLike = (id) => {
@@ -70,6 +79,36 @@ export const App = () => {
       });
   };
 
+  /*   return (
+    <>
+      <GlobalStyles />
+      <Title padding="48px">
+        <LikeIcon />
+        Happy Thoughts
+        <LikeIcon />
+      </Title>
+      <Form addThought={postMessage} />
+
+      {loading ? (
+        <Lottie animationData={AnimationLoading}
+        loop={true}
+        style={{height: 280, width: 280, margin: "0, auto"}}
+         />
+      ) : (
+      messages.map((msg) => (
+        <Message
+          key={`${msg.id}-${msg.isNew ? "new" : "old"}`}
+          text={msg.text}
+          addedAt={msg.addedAt}
+          hearts={msg.hearts}
+          onLike={() => addLike(msg.id)}
+          isNew={msg.isNew}
+        />
+      ))
+    )}
+  </>
+); */
+
   return (
     <>
       <GlobalStyles />
@@ -79,15 +118,25 @@ export const App = () => {
         <LikeIcon />
       </Title>
       <Form addThought={postMessage} />
-      {messages.map((msg) => (
-        <Message
-          key={msg.id}
-          text={msg.text}
-          addedAt={msg.addedAt}
-          hearts={msg.hearts}
-          onLike={() => addLike(msg.id)}
+
+      {loading ? (
+        <Lottie
+          animationData={AnimationLoading}
+          loop={true}
+          style={{ height: 200, width: 200, margin: "0 auto" }}
         />
-      ))}
+      ) : (
+        messages.map((msg) => (
+          <Message
+            key={`${msg.id}-${msg.isNew ? "new" : "old"}`}
+            text={msg.text}
+            addedAt={msg.addedAt}
+            hearts={msg.hearts}
+            onLike={() => addLike(msg.id)}
+            isNew={msg.isNew}
+          />
+        ))
+      )}
     </>
   );
 };

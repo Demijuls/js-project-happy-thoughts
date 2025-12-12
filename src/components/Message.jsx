@@ -1,9 +1,20 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState, useEffect } from "react";
 import { BodyText } from "./styles/Typography";
 import { CountText } from "./styles/Typography";
 import { LikeButton } from "./LikeButton";
-import { media } from "./styles/media";
+
+const slideIn = keyframes`
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 const MessageWrapper = styled.div`
   background-color: #fff;
@@ -17,6 +28,9 @@ const MessageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  /*Slide in animation for new card with a message*/
+  animation: ${(props) => (props.isNew ? slideIn : "none")} 0.6s ease-out;
 `;
 
 const ActionWrapper = styled.div`
@@ -39,7 +53,7 @@ const getTimeStamp = (timeStamp) => {
   return `${days} day${days === 1 ? "" : "s"} ago`;
 };
 
-export const Message = ({ text, addedAt, hearts, onLike }) => {
+export const Message = ({ text, addedAt, hearts, onLike, isNew }) => {
   const [, setTick] = useState(0);
 
   useEffect(() => {
@@ -51,7 +65,7 @@ export const Message = ({ text, addedAt, hearts, onLike }) => {
   }, []);
 
   return (
-    <MessageWrapper>
+    <MessageWrapper isNew={isNew}>
       <BodyText>{text}</BodyText>
       <ActionWrapper>
         <LikeButton count={hearts} onClick={onLike} />
