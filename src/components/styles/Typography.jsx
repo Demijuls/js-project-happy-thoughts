@@ -7,16 +7,16 @@ export const Title = styled.h1`
   color: #000;
   padding: ${(props) => props.padding || "0"};
 
-  @media ${media.xs} {
+  @media (${media.xs}) and (${media.xsm}) {
     font-size: 1.5em;
     text-align: left;
   }
 
-  @media ${media.sm} {
+  @media (${media.sm}) {
     font-size: 1.5em;
   }
 
-  @media ${media.md} {
+  @media (${media.md}) {
     font-size: 1.5em;
   }
 `;
@@ -48,11 +48,11 @@ export const BodyText = styled.p`
   padding: ${(props) => props.padding || "0"};
   overflow-wrap: normal;
 
-  @media ${media.xs} {
+  @media (${media.xs}) {
     font-size: 16px;
   }
 
-  @media ${media.sm} {
+  @media (${media.sm}) {
     font-size: 16px;
   }
 `;

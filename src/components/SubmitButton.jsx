@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { BodyText } from "./styles/Typography";
+import { LikeIcon } from "../icons/LikeIcon";
+import { media } from "./styles/media";
 
 const ButtonSubmit = styled.button`
   background-color: #ffa9ab;
@@ -9,9 +10,19 @@ const ButtonSubmit = styled.button`
   height: 46px;
   border-radius: 24px;
   border: none;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @media (${media.xs}) and (${media.xsm}) {
+    max-width: 100%;
+  }
 
   &:hover {
     background-color: #fc8486;
+    cursor: pointer;
   }
   /* Pressed button */
 
@@ -27,9 +38,11 @@ const ButtonSubmit = styled.button`
 `;
 
 export const SubmitButton = () => {
+  /*   const [textDef, addText] = useState{''}; */
+
   return (
     <ButtonSubmit type="submit">
-      <BodyText>❤️ Send happy thought ❤️</BodyText>
+      <LikeIcon /> <BodyText> Send happy thought</BodyText> <LikeIcon />
     </ButtonSubmit>
   );
 };

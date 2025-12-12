@@ -13,6 +13,11 @@ body {
   background-color: #fff;
   display: flex;
   justify-content: center;
+  font-family: "Roboto+Mono", monospace, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 18px;
 }
   
 

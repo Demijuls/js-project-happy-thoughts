@@ -1,21 +1,20 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { BodyText } from "./styles/Typography";
 import { CountText } from "./styles/Typography";
+import { LikeIcon } from "../icons/LikeIcon";
 
 const ButtonLike = styled.button`
   background-color: #eaeaea;
   padding: 4px;
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: 25px;
   border: none;
 
   &:hover {
     background-color: #fc8486;
   }
-  /* Pressed button */
 
+  /* Pressed button */
   &:active {
     background-color: #f84f51;
   }
@@ -33,19 +32,17 @@ const CountWrapper = styled.div`
   align-items: center;
 `;
 
-export const LikeButton = () => {
-  const [count, setCount] = useState(0);
+export const LikeButton = ({ count, onClick }) => {
+  /*   const [count, setCount] = useState(0);
 
   const handleOnClick = () => {
     setCount((count) => count + 1);
-
-    console.log("count", count);
-  };
+  }; */
 
   return (
     <CountWrapper>
-      <ButtonLike type="button" onClick={handleOnClick}>
-        <BodyText align="center">❤️</BodyText>
+      <ButtonLike type="button" onClick={onClick}>
+        <LikeIcon />
       </ButtonLike>
       <CountText color="#888888">x {count}</CountText>
     </CountWrapper>
