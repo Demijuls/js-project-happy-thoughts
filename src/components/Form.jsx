@@ -71,7 +71,7 @@ export const Form = ({ addThought }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (message.thought.trim() !== "") {
+    if (message.thought.trim() === "") {
       setError("Add your happy thought before submitting!");
       return;
     }
