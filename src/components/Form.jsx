@@ -50,12 +50,11 @@ const ErrorText = styled.div`
 
 export const Form = ({ addThought }) => {
   const [message, setMessage] = useState({ thought: "" });
-  /*  const [posted, setPosted] = useState([]); */
   const [error, setError] = useState("");
 
-  const maxCharachters = 140;
+  const maxCharacters = 140;
   const charactersUsed = message.thought.length;
-  const extraCharacters = charactersUsed > maxCharachters;
+  const extraCharacters = charactersUsed > maxCharacters;
 
   const handleInputChange = (event) => {
     const name = event.target.name;
@@ -72,7 +71,7 @@ export const Form = ({ addThought }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!message.thought.trim()) {
+    if (message.thought.trim() !== "") {
       setError("Add your happy thought before submitting!");
       return;
     }
@@ -123,8 +122,8 @@ export const Form = ({ addThought }) => {
         $error={extraCharacters}
       />
       <LetterCounter error={extraCharacters}>
-        Characters left:{Math.max(maxCharachters - charactersUsed, 0)} /{" "}
-        {maxCharachters}
+        Characters left:{Math.max(maxCharacters - charactersUsed, 0)} /{" "}
+        {maxCharacters}
       </LetterCounter>
       {error && <ErrorText>{error}</ErrorText>}
 

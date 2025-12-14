@@ -11,27 +11,6 @@ export const App = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  /* useEffect(() => {
-    const savedMsg = localStorage.getItem("newThoughts");
-    if (savedMsg) {
-      setMessages(JSON.parse(savedMsg));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("newThoughts", JSON.stringify(messages));
-  }, [messages]);
-
-  const postMessage = (messageObj) => {
-    const newMessage = {
-      id: Date.now(),
-      text: messageObj.thought,
-      addedAt: Date.now(),
-    };
-
-    setMessages((prev) => [newMessage, ...prev]);
-  }; */
-
   useEffect(() => {
     setLoading(true);
 
@@ -45,11 +24,8 @@ export const App = () => {
           addedAt: new Date(item.createdAt).getTime(),
         }));
         setMessages(formatData);
-        /*  localStorage.setItem("newThoughts", JSON.stringify(data)); */
       })
       .finally(() => setLoading(false));
-
-    /* .catch((errors) => console.error("Fetch error:", errors)); */
   }, []);
 
   const postMessage = (newMessage) => {
@@ -78,36 +54,6 @@ export const App = () => {
         );
       });
   };
-
-  /*   return (
-    <>
-      <GlobalStyles />
-      <Title padding="48px">
-        <LikeIcon />
-        Happy Thoughts
-        <LikeIcon />
-      </Title>
-      <Form addThought={postMessage} />
-
-      {loading ? (
-        <Lottie animationData={AnimationLoading}
-        loop={true}
-        style={{height: 280, width: 280, margin: "0, auto"}}
-         />
-      ) : (
-      messages.map((msg) => (
-        <Message
-          key={`${msg.id}-${msg.isNew ? "new" : "old"}`}
-          text={msg.text}
-          addedAt={msg.addedAt}
-          hearts={msg.hearts}
-          onLike={() => addLike(msg.id)}
-          isNew={msg.isNew}
-        />
-      ))
-    )}
-  </>
-); */
 
   return (
     <>
