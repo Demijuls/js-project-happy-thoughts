@@ -100,6 +100,7 @@ export const Form = ({ addThought }) => {
         addThought({
           id: newThought._id,
           text: newThought.message,
+          hearts: newThought.hearts,
           addedAt: new Date(newThought.createdAt).getTime(),
         });
       });
