@@ -78,14 +78,14 @@ export const Form = ({ addThought }) => {
 
     if (extraCharacters) {
       setError(
-        "Ooops, you have so many characters to be happy about but we only have space for 140 of them!"
+        "Ooops, you have so many characters to be happy about but we only have space for 140 of them!",
       );
       return;
     }
 
     if (message.thought.length < 5) {
       setError(
-        "Please give us a bit more details, and use more at least 5 characters!"
+        "Please give us a bit more details, and use more at least 5 characters!",
       );
       return;
     }
