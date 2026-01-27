@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { BodyText } from "./styles/Typography";
 import { CountText } from "./styles/Typography";
 import { LikeButton } from "./LikeButton";
+import { EditButton } from "./EditButton";
+import { DeleteButton } from "./DeleteButton";
 
 const slideIn = keyframes`
   0% {
@@ -32,7 +34,12 @@ const MessageWrapper = styled.div`
   /*Slide in animation for new card with a message*/
   animation: ${(props) => (props.isNew ? slideIn : "none")} 0.6s ease-out;
 `;
-
+const EditWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+`;
 const ActionWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -66,6 +73,10 @@ export const Message = ({ text, addedAt, hearts, onLike, isNew }) => {
 
   return (
     <MessageWrapper isNew={isNew}>
+      <EditWrapper className="editActionsWrapper">
+        <EditButton />
+        <DeleteButton />
+      </EditWrapper>
       <BodyText>{text}</BodyText>
       <ActionWrapper>
         <LikeButton count={hearts} onClick={onLike} />
