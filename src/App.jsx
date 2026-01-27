@@ -38,8 +38,8 @@ export const App = () => {
   const addLike = (id) => {
     setMessages((prev) =>
       prev.map((msg) =>
-        msg.id === id ? { ...msg, hearts: msg.hearts + 1 } : msg
-      )
+        msg.id === id ? { ...msg, hearts: msg.hearts + 1 } : msg,
+      ),
     );
 
     fetch(`https://happy-thoughts-api-4ful.onrender.com/thoughts/${id}/like`, {
@@ -49,10 +49,18 @@ export const App = () => {
       .then((updatedMsg) => {
         setMessages((prev) =>
           prev.map((msg) =>
-            msg.id === id ? { ...msg, hearts: updatedMsg.hearts } : msg
-          )
+            msg.id === id ? { ...msg, hearts: updatedMsg.hearts } : msg,
+          ),
         );
       });
+  };
+
+  const handleDelete = (id) => {
+    fetch(`https://happy-thoughts-api-4ful.onrender.com/thoughts/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      return setMessages(messages.filter((msg) => msg.id !== id));
+    });
   };
 
   return (
@@ -79,6 +87,7 @@ export const App = () => {
             addedAt={msg.addedAt}
             hearts={msg.hearts}
             onLike={() => addLike(msg.id)}
+            onDelete={() => handleDelete(msg.id)}
             isNew={msg.isNew}
           />
         ))

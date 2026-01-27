@@ -29,7 +29,7 @@ const MessageWrapper = styled.div`
   margin: 32px auto;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 
   /*Slide in animation for new card with a message*/
   animation: ${(props) => (props.isNew ? slideIn : "none")} 0.6s ease-out;
@@ -60,7 +60,7 @@ const getTimeStamp = (timeStamp) => {
   return `${days} day${days === 1 ? "" : "s"} ago`;
 };
 
-export const Message = ({ text, addedAt, hearts, onLike, isNew }) => {
+export const Message = ({ text, addedAt, hearts, onLike, onDelete, isNew }) => {
   const [, setTick] = useState(0);
 
   useEffect(() => {
@@ -71,11 +71,16 @@ export const Message = ({ text, addedAt, hearts, onLike, isNew }) => {
     return () => clearInterval(interval);
   }, []);
 
+  /*  const handleDelete = ({ text }) => {
+    useState;
+    console.log("delete button clicked for", text);
+  }; */
+
   return (
     <MessageWrapper isNew={isNew}>
       <EditWrapper className="editActionsWrapper">
         <EditButton />
-        <DeleteButton />
+        <DeleteButton onClick={onDelete} />
       </EditWrapper>
       <BodyText>{text}</BodyText>
       <ActionWrapper>
