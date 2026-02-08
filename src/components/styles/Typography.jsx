@@ -21,13 +21,13 @@ export const Title = styled.h1`
   }
 `;
 
-/* export const H2 = styled.h2`
+export const H2 = styled.h2`
   font-size: ${(props) => props.size || "18px"};
   font-weight: ${(props) => props.weight || 600};
   color: ${(props) => props.color || "#000"};
   font-weight: 500;
   text-align: ${(props) => props.aling || "center"};
-  line-height: 90%;
+  line-height: 100%;
   padding: ${(props) => props.padding || "0"};
 
   @media ${media.xs} {
@@ -37,7 +37,7 @@ export const Title = styled.h1`
   @media ${media.sm} {
     font-size: 16px;
   }
-`; */
+`;
 
 export const BodyText = styled.p`
   font-size: ${(props) => props.size || "18px"};

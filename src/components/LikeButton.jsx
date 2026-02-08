@@ -33,12 +33,6 @@ const CountWrapper = styled.div`
 `;
 
 export const LikeButton = ({ count, onClick }) => {
-  /*   const [count, setCount] = useState(0);
-
-  const handleOnClick = () => {
-    setCount((count) => count + 1);
-  }; */
-
   return (
     <CountWrapper>
       <ButtonLike type="button" onClick={onClick}>

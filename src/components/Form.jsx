@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { SubmitButton } from "./SubmitButton";
+import { apiUrl } from "../api";
 
 const FormStyled = styled.form`
   background-color: #f2f0f0;
@@ -48,7 +49,7 @@ const ErrorText = styled.div`
   font-weight: 500;
 `;
 
-export const Form = ({ addThought }) => {
+export const Form = ({ addThought, /* user, */ authToken }) => {
   const [message, setMessage] = useState({ thought: "" });
   const [error, setError] = useState("");
 
@@ -56,7 +57,7 @@ export const Form = ({ addThought }) => {
   const charactersUsed = message.thought.length;
   const extraCharacters = charactersUsed > maxCharacters;
 
-  const handleInputChange = (event) => {
+  /* const handleInputChange = (event) => {
     const name = event.target.name;
     const val = event.target.value;
 
@@ -66,10 +67,25 @@ export const Form = ({ addThought }) => {
     }));
 
     if (error) setError(""); //empty error while user is typing
+  }; */
+
+  const handleInputChange = (event) => {
+    setMessage({ thought: event.target.value });
+    if (error) setError("");
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (!authToken || Object.keys(authToken()).length === 0) {
+      setError("You must be logged in to submit a thought!");
+      return;
+    }
+
+    /*  if (!user) {
+      setError("You must be logged in to add your thought");
+      return;
+    } */
 
     if (message.thought.trim() === "") {
       setError("Add your happy thought before submitting!");
@@ -90,16 +106,19 @@ export const Form = ({ addThought }) => {
       return;
     }
 
-    fetch("https://happy-thoughts-api-4ful.onrender.com/thoughts", {
+    fetch(apiUrl + "/thoughts", {
       method: "POST",
       body: JSON.stringify({ message: message.thought }),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...authToken(),
+      },
     })
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((newThought) => {
         addThought({
           id: newThought._id,
-          text: newThought.message,
+          message: newThought.message,
           hearts: newThought.hearts,
           addedAt: new Date(newThought.createdAt).getTime(),
         });
